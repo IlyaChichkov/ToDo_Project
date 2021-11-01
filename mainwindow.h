@@ -2,6 +2,9 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QListWidgetItem>
+#include <QLabel>
+#include <QInputDialog>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -14,6 +17,16 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
+
+    void SetGroupsByList(QList<QString> groupsNames);
+private slots:
+
+    void on_taskGroupsList_currentItemChanged(QListWidgetItem *current, QListWidgetItem *previous);
+
+    void on_exitButton_released();
+
+    void on_addNewGroup_clicked();
+
 
 private:
     Ui::MainWindow *ui;
