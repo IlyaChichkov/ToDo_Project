@@ -6,6 +6,8 @@
 #include <QLabel>
 #include <QInputDialog>
 
+#include <filemanager.h>
+
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
 QT_END_NAMESPACE
@@ -15,10 +17,12 @@ class MainWindow : public QMainWindow
     Q_OBJECT
 
 public:
+    FileManager* fileManager;
+
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
-    void SetGroupsByList(QList<QString> groupsNames);
+    void SetGroupsListWidget(QList<QString> groupNames);
 private slots:
 
     void on_taskGroupsList_currentItemChanged(QListWidgetItem *current, QListWidgetItem *previous);

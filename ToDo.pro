@@ -11,11 +11,15 @@ CONFIG += c++11
 SOURCES += \
     filemanager.cpp \
     main.cpp \
-    mainwindow.cpp
+    mainwindow.cpp \
+    task.cpp \
+    taskgroup.cpp
 
 HEADERS += \
     filemanager.h \
-    mainwindow.h
+    mainwindow.h \
+    task.h \
+    taskgroup.h
 
 FORMS += \
     mainwindow.ui
@@ -25,5 +29,4 @@ qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
-DISTFILES += \
-    tasks.json
+DISTFILES +=

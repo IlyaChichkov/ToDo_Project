@@ -1,6 +1,6 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-
+#include <QStandardItemModel>
 #include <QDebug>
 
 MainWindow::MainWindow(QWidget *parent)
@@ -22,6 +22,7 @@ MainWindow::MainWindow(QWidget *parent)
     ui->taskGroupsList->addItem("Машины");
     ui->taskGroupsList->addItem("Фото");
     ui->taskGroupsList->addItem("Остальное");
+
 }
 
 MainWindow::~MainWindow()
@@ -29,32 +30,38 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
+void MainWindow::SetGroupsListWidget(QList<QString> groupNames)
+{
+    ui->taskGroupsList->clear(); // очищаем текущие значения наименований групп
+    foreach (QString name, groupNames) {
+        ui->taskGroupsList->addItem(name); // добавлям в список имя группы
+    }
+
+    ui->selectedGroupName->setText(ui->taskGroupsList->item(0)->text()); // отображаем заголовок первой группы в списке
+}
+
 void MainWindow::on_taskGroupsList_currentItemChanged(QListWidgetItem *current, QListWidgetItem *previous)
 {
-    ui->selectedGroupName->setText(ui->taskGroupsList->currentItem()->text());
+    //  при выделение группы мышью
+
+    // вывод в консоль имени первой задачи в группе
+    // qDebug() << fileManager->GetGroupTasks(current->text())[0]->name;
+
+    ui->selectedGroupName->setText(current->text()); // отображаем заголовок текущей группы
+}
+
+void MainWindow::on_addNewGroup_clicked()
+{
+    // добавление новой группы
+    bool buttonOk;
+    QString newGroupName = QInputDialog::getText(0, "Новая группа", "Введите название новой группы:", QLineEdit::Normal, "", &buttonOk);
+    if (buttonOk && newGroupName.length() > 0) { // если нажата OK и введено имя
+        ui->taskGroupsList->addItem(newGroupName); // добавляем новую группу в список
+    }
 }
 
 void MainWindow::on_exitButton_released()
 {
     QApplication::quit();
 }
-
-void MainWindow::on_addNewGroup_clicked()
-{
-    bool bOk;
-    QString newGroupName = QInputDialog::getText(0, "Новая группа", "Введите название новой группы:", QLineEdit::Normal, "", &bOk);
-    if (bOk && newGroupName.length() > 0) {
-        ui->taskGroupsList->addItem(newGroupName);
-    }
-}
-
-void MainWindow::SetGroupsByList(QList<QString> groupsNames)
-{
-    ui->taskGroupsList->clear();
-    foreach (QString name, groupsNames) {
-        ui->taskGroupsList->addItem(name);
-        ui->selectedGroupName->setText(name);
-    }
-}
-
 

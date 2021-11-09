@@ -8,12 +8,11 @@
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
-    MainWindow w;
+    FileManager* fileManager = new FileManager(&a); // инициализируем файловый менеджер
+
+    MainWindow w; // создание главного окна
+    w.fileManager = fileManager; // передаем указатель на файловый менеджер
+    w.SetGroupsListWidget(fileManager->GetGroupsNames()); // загрузка списка групп
     w.show();
-
-    FileManager* fileManager = new FileManager();
-
-    w.SetGroupsByList(fileManager->GetGroupsNames());
-
     return a.exec();
 }
