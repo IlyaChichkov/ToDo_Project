@@ -9,6 +9,7 @@ CONFIG += c++11
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    addnewtaskdialog.cpp \
     filemanager.cpp \
     main.cpp \
     mainwindow.cpp \
@@ -16,12 +17,14 @@ SOURCES += \
     taskgroup.cpp
 
 HEADERS += \
+    addnewtaskdialog.h \
     filemanager.h \
     mainwindow.h \
     task.h \
     taskgroup.h
 
 FORMS += \
+    addnewtaskdialog.ui \
     mainwindow.ui
 
 # Default rules for deployment.

@@ -3,6 +3,8 @@
 #include <QStandardItemModel>
 #include <QDebug>
 
+#include "addnewtaskdialog.h"
+
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
@@ -63,5 +65,13 @@ void MainWindow::on_addNewGroup_clicked()
 void MainWindow::on_exitButton_released()
 {
     QApplication::quit();
+}
+
+void MainWindow::on_addNewTask_clicked()
+{
+    AddNewTaskDialog *addNewTaskDialog = new AddNewTaskDialog(this->ui->addNewTask);
+    // Благодаря этому аттрибуту не нужно delete addNewTaskDialog и не нужно сохранять указатель в класс
+    addNewTaskDialog->setAttribute(Qt::WA_DeleteOnClose);
+    addNewTaskDialog->show();
 }
 

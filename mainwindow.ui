@@ -124,6 +124,19 @@ border: 3px solid black;</string>
      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:12pt; font-weight:600;&quot;&gt;TextLabel&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
     </property>
    </widget>
+   <widget class="QPushButton" name="addNewTask">
+    <property name="geometry">
+     <rect>
+      <x>629</x>
+      <y>330</y>
+      <width>101</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Добавить Задачу</string>
+    </property>
+   </widget>
   </widget>
  </widget>
  <resources/>
