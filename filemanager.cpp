@@ -67,11 +67,76 @@ QList<Task *> FileManager::GetGroupTasks(QString groupName)
 {
     QList<Task *> tasks;
     for(int i = 0; i < this->groups.length(); i++){
+        // qDebug() << "Check group: " << this->groups[i]->name;
         if(this->groups[i]->name == groupName){ // проверяем имя группы
             tasks = (this->groups[i]->tasks);
         }
     }
     return tasks;
+}
+
+void FileManager::AddTaskToGroup(QString groupName, Task *task)
+{
+    for(int i = 0; i < this->groups.length(); i++){
+        if(this->groups[i]->name == groupName){ // проверяем имя группы
+            this->groups[i]->tasks.append(task);
+        }
+    }
+}
+
+void FileManager::SaveData()
+{
+    qDebug() << "Saving Data...";
+    QFile dataFile(this->fileName);
+    dataFile.open(QIODevice::WriteOnly | QIODevice::Text);
+    QTextStream iStream(&dataFile); // открываем поток
+
+    QJsonObject root;
+
+    QJsonArray groupsList;
+
+    // создание групп
+    for(int i = 0; i < groups.length(); i++){
+        // создание задач в группе
+        TaskGroup* currentGroup = groups[i];
+        QJsonArray tasksList;
+        for(int j = 0; j < currentGroup->tasks.length(); j++){
+            qDebug() << "Groups creating";
+            QJsonObject task{
+                {"name", currentGroup->tasks[j]->name},
+                {"desc", currentGroup->tasks[j]->desc}
+            };
+            tasksList.append(task);
+        }
+        qDebug() << "Groups creating";
+        QJsonObject group{
+            {"name", currentGroup->name},
+            {"tasks", tasksList}
+        };
+        groupsList.append(group);
+    }
+
+    /*
+    QJsonArray groupsList;
+    QJsonObject group;
+    QJsonArray tasks;
+    QJsonObject task;
+    // создаем стандартную задачу (приветствие)
+    task.insert("name", "Первая задача");
+    task.insert("desc", "В данном окне будут отображаться ваши задачи.");
+    tasks.append(task);
+    group.insert("name", "Добро пожаловать");
+    group.insert("tasks", tasks);
+
+    groupsList.append(group); */
+    root.insert("groups", groupsList);
+
+    QJsonDocument document;
+    document.setObject(root);
+    QByteArray bytes = document.toJson( QJsonDocument::Indented );
+
+    iStream << bytes;
+    dataFile.close(); // закрываем файл
 }
 
 void FileManager::CreateStandartDataFile()
@@ -102,4 +167,5 @@ void FileManager::CreateStandartDataFile()
     iStream << bytes; // записываем данные
     dataFile.close(); // закрываем файл
 }
+
 

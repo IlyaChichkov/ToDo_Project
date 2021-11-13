@@ -6,7 +6,8 @@
 #include <QLabel>
 #include <QInputDialog>
 
-#include <filemanager.h>
+#include "filemanager.h"
+#include "addnewtaskdialog.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -30,6 +31,8 @@ private slots:
     void on_exitButton_released();
 
     void on_addNewGroup_clicked();
+
+    void on_addNewTask_clicked();
 
 
 private:
