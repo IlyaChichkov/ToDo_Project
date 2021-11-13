@@ -2,9 +2,10 @@
 #include "ui_addnewtaskdialog.h"
 #include <QMessageBox>
 
+#include <QDebug>
 #include "task.h"
 //Функция addNewTaskToGroup(task) должна быть реализована в filemanager
-//#include "filemanager.h"
+// #include "filemanager.h"
 
 AddNewTaskDialog::AddNewTaskDialog(QWidget *parent) :
     QDialog(parent),
@@ -21,6 +22,10 @@ void AddNewTaskDialog::on_createButton_clicked(){
     Task* task = createNewTask();
     if(!task)
         return;
+
+    qDebug() << task->name;
+    this->fileManager->AddTaskToGroup(currentGroup, task);
+    this->fileManager->SaveData();
     this->close();
 // Эта функция должна быть реализована в filemanager
 //    addNewTaskToGroup(task);

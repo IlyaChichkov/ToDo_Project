@@ -2,6 +2,7 @@
 #define ADDNEWTASKDIALOG_H
 
 #include <QDialog>
+#include <filemanager.h>
 
 #include "task.h"
 
@@ -17,10 +18,11 @@ public:
     explicit AddNewTaskDialog(QWidget *parent = nullptr);
     ~AddNewTaskDialog();
     Task* createNewTask();
+    QString currentGroup;
+    FileManager* fileManager;
 
 public slots:
     void on_cancelButton_clicked();
-
     void on_createButton_clicked();
 
 private:
