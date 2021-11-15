@@ -33,6 +33,8 @@ public:
     QList<TaskGroup*> LoadData();
     QList<QString> GetGroupsNames();
     QList<Task*> GetGroupTasks(QString groupName);
+    void AddTaskToGroup(QString groupName, Task *task);
+    void SaveData();
 
 signals:
 
