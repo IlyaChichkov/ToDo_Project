@@ -17,7 +17,7 @@ class AddNewTaskDialog : public QDialog
 public:
     explicit AddNewTaskDialog(QWidget *parent = nullptr);
     ~AddNewTaskDialog();
-    Task* createNewTask();
+    Task* CreateNewTask();
     QString currentGroup;
     FileManager* fileManager;
 

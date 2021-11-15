@@ -19,7 +19,7 @@ void AddNewTaskDialog::on_cancelButton_clicked(){
 }
 
 void AddNewTaskDialog::on_createButton_clicked(){
-    Task* task = createNewTask();
+    Task* task = CreateNewTask();
     if(!task)
         return;
 
@@ -31,7 +31,7 @@ void AddNewTaskDialog::on_createButton_clicked(){
 //    addNewTaskToGroup(task);
 }
 
-Task* AddNewTaskDialog::createNewTask(){
+Task* AddNewTaskDialog::CreateNewTask(){
     // Проверка на пустоту поля name в задаче
     if(!ui->name->text().length()){
         QMessageBox msg;
