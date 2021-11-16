@@ -8,6 +8,7 @@
 
 #include "filemanager.h"
 #include "addnewtaskdialog.h"
+#include "addedittask.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -34,6 +35,7 @@ private slots:
 
     void on_addNewTask_clicked();
 
+    void on_EditTask_clicked();
 
 private:
     Ui::MainWindow *ui;

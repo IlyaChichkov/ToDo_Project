@@ -4,6 +4,7 @@
 #include <QDebug>
 
 #include "addnewtaskdialog.h"
+#include "addedittask.h"
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -83,5 +84,15 @@ void MainWindow::on_addNewTask_clicked()
     addNewTaskDialog->fileManager = this->fileManager; // передаем указатель на file manager
     addNewTaskDialog->currentGroup = ui->taskGroupsList->currentItem()->text(); // сообщяем имя текущей группы
     addNewTaskDialog->show();
+}
+
+void MainWindow::on_EditTask_clicked()
+{
+    AddEditTask *addEditTask = new AddEditTask(this->ui->EditTask);
+    // Благодаря этому аттрибуту не нужно delete addNewTaskDialog и не нужно сохранять указатель в класс
+    addEditTask->setAttribute(Qt::WA_DeleteOnClose);
+    addEditTask->fileManager = this->fileManager; // передаем указатель на file manager
+    addEditTask->currentGroup = ui->taskGroupsList->currentItem()->text(); // сообщяем имя текущей группы
+    addEditTask->show();
 }
 
