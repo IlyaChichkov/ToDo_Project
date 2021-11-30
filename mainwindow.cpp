@@ -2,6 +2,9 @@
 #include "ui_mainwindow.h"
 #include <QStandardItemModel>
 #include <QDebug>
+#include <QQmlEngine>
+#include <QQmlComponent>
+#include <QWindow>
 
 #include "addnewtaskdialog.h"
 #include "addedittask.h"
@@ -78,12 +81,17 @@ void MainWindow::on_exitButton_released()
 
 void MainWindow::on_addNewTask_clicked()
 {
-    AddNewTaskDialog *addNewTaskDialog = new AddNewTaskDialog(this->ui->addNewTask);
-    // Благодаря этому аттрибуту не нужно delete addNewTaskDialog и не нужно сохранять указатель в класс
-    addNewTaskDialog->setAttribute(Qt::WA_DeleteOnClose);
-    addNewTaskDialog->fileManager = this->fileManager; // передаем указатель на file manager
-    addNewTaskDialog->currentGroup = ui->taskGroupsList->currentItem()->text(); // сообщяем имя текущей группы
-    addNewTaskDialog->show();
+    qmlRegisterType<AddNewTaskDialog>("ToDo", 1, 0, "AddNewTaskDialog");
+    QQmlEngine engine;
+    QQmlComponent component(&engine,
+                            QUrl::fromLocalFile(":/AddNewTaskDialog.qml"));
+    addNewTaskDialog = qobject_cast<QWindow*>(component.create());
+//    AddNewTaskDialog *addNewTaskDialog = new AddNewTaskDialog(this->ui->addNewTask);
+//    // Благодаря этому аттрибуту не нужно delete addNewTaskDialog и не нужно сохранять указатель в класс
+//    addNewTaskDialog->setAttribute(Qt::WA_DeleteOnClose);
+//    addNewTaskDialog->fileManager = this->fileManager; // передаем указатель на file manager
+//    addNewTaskDialog->currentGroup = ui->taskGroupsList->currentItem()->text(); // сообщяем имя текущей группы
+//    addNewTaskDialog->show();
 }
 
 void MainWindow::on_EditTask_clicked()
