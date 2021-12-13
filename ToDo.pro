@@ -36,7 +36,8 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 DISTFILES += \
-    AddNewTaskDialog.qml
+    AddNewTaskDialog.qml \
+    TumblerDelegate.qml
 
 RESOURCES += \
     main.qrc

@@ -2,9 +2,11 @@
 #include "ui_mainwindow.h"
 #include <QStandardItemModel>
 #include <QDebug>
-#include <QQmlEngine>
+#include <QQuickView>
 #include <QQmlComponent>
 #include <QWindow>
+#include <QQmlContext>
+#include <QQmlEngine>
 
 #include "addnewtaskdialog.h"
 #include "addedittask.h"
@@ -81,17 +83,18 @@ void MainWindow::on_exitButton_released()
 
 void MainWindow::on_addNewTask_clicked()
 {
-    qmlRegisterType<AddNewTaskDialog>("ToDo", 1, 0, "AddNewTaskDialog");
-    QQmlEngine engine;
-    QQmlComponent component(&engine,
-                            QUrl::fromLocalFile(":/AddNewTaskDialog.qml"));
-    addNewTaskDialog = qobject_cast<QWindow*>(component.create());
-//    AddNewTaskDialog *addNewTaskDialog = new AddNewTaskDialog(this->ui->addNewTask);
-//    // Благодаря этому аттрибуту не нужно delete addNewTaskDialog и не нужно сохранять указатель в класс
-//    addNewTaskDialog->setAttribute(Qt::WA_DeleteOnClose);
-//    addNewTaskDialog->fileManager = this->fileManager; // передаем указатель на file manager
-//    addNewTaskDialog->currentGroup = ui->taskGroupsList->currentItem()->text(); // сообщяем имя текущей группы
-//    addNewTaskDialog->show();
+    qmlRegisterType<AddNewTaskDialog>("ToDo", 1, 0, "AddNewTask");
+    AddNewTaskDialog *addNewTaskDialog = new AddNewTaskDialog(this->ui->addNewTask);
+    QQuickView *view = new QQuickView;
+    view->setMinimumHeight(500);
+    view->setMinimumWidth(350);
+    view->setResizeMode(QQuickView::SizeRootObjectToView);
+    view->setSource(QUrl::fromLocalFile(":/AddNewTaskDialog.qml"));
+    view->show();
+    view->rootContext()->setContextProperty("addNewTask", addNewTaskDialog);
+    addNewTaskDialog->fileManager = this->fileManager; // передаем указатель на file manager
+    addNewTaskDialog->currentGroup = ui->taskGroupsList->currentItem()->text(); // сообщяем имя текущей группы
+    addNewTaskDialog->view = view;
 }
 
 void MainWindow::on_EditTask_clicked()
