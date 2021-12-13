@@ -5,6 +5,7 @@
 #include <QListWidgetItem>
 #include <QLabel>
 #include <QInputDialog>
+#include <QWindow>
 
 #include "filemanager.h"
 #include "addnewtaskdialog.h"
@@ -39,5 +40,6 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
+    QWindow *addNewTaskDialog;
 };
 #endif // MAINWINDOW_H

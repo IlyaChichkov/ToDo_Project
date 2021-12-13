@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/">
+        <file>AddNewTaskDialog.qml</file>
+    </qresource>
+</RCC>
