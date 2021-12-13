@@ -179,7 +179,7 @@ Item{
                                                       minutesTumbler.currentIndex,
                                                      dayTumbler.currentIndex + 1,
                                                      ])
-                          addNewTask.destruct();
+//                          addNewTask.destruct();
 //                          console.log(monthTumbler.currentItem)
                       })()
     onCancelClicked: (() => {

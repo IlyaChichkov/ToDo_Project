@@ -45,5 +45,5 @@ void AddNewTaskDialog::onCreateClicked(QVariantList writables){
     qDebug() << task->name << task->desc;
     this->fileManager->AddTaskToGroup(currentGroup, task);
     this->fileManager->SaveData();
-
+    destruct();
 }
