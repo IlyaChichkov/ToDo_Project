@@ -106,6 +106,7 @@ Item{
                                     onCurrentIndexChanged: dayTumbler.updateModel()
 
                                     model: ListModel {
+                                        id: monthModel
                                         ListElement { name: "Январь" }
                                         ListElement { name: "Февраль" }
                                         ListElement { name: "Март" }
@@ -178,9 +179,11 @@ Item{
                                                       hoursTumbler.currentIndex,
                                                       minutesTumbler.currentIndex,
                                                      dayTumbler.currentIndex + 1,
+                                                     monthModel.get(monthTumbler.currentIndex).name,
+                                                     yearTumbler.model[yearTumbler.currentIndex],
                                                      ])
 //                          addNewTask.destruct();
-//                          console.log(monthTumbler.currentItem)
+//                          console.log()
                       })()
     onCancelClicked: (() => {
                           addNewTask.destruct();
