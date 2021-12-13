@@ -5,6 +5,8 @@
 #include <QListWidgetItem>
 #include <QLabel>
 #include <QInputDialog>
+#include <QListView>
+#include <QStringListModel>
 
 #include "filemanager.h"
 #include "addnewtaskdialog.h"
@@ -35,7 +37,13 @@ private slots:
     void on_addNewTask_clicked();
 
 
+    void on_AddButton_clicked();
+
+    void on_DeleteButton_clicked();
+
 private:
     Ui::MainWindow *ui;
+    QListView* Pending = nullptr;
+    QListView* Completed = nullptr;
 };
 #endif // MAINWINDOW_H

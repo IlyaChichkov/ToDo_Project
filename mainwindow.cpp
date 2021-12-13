@@ -24,6 +24,38 @@ MainWindow::MainWindow(QWidget *parent)
     ui->taskGroupsList->addItem("Машины");
     ui->taskGroupsList->addItem("Фото");
     ui->taskGroupsList->addItem("Остальное");
+
+
+    Pending = new QListView(this);
+    Pending->setDragEnabled(true); //перетаскивание
+    Pending->setAcceptDrops(true);
+    Pending->setDropIndicatorShown(true); //индикатор падения
+    Pending->setDefaultDropAction(Qt::MoveAction);
+    ui->pcLayout->addWidget(Pending); /*добавляем виджет в
+    pcLayout(p-pending, c-complited)*/
+
+    //перемещение задачи в раздел "не выполнено"
+    Completed = new QListView(this);
+    Completed->setDragEnabled(true);
+    Completed->setAcceptDrops(true);
+    Completed->setDropIndicatorShown(true);
+    Completed->setDefaultDropAction(Qt::MoveAction);
+    ui->pcLayout->addWidget(Completed);
+
+    Pending->setModel(new QStringListModel());
+    Completed->setModel(new QStringListModel());
+
+    Pending->setStyleSheet
+    ("QListView { font-size: 10pt; font-weight: bold; }"
+     "QListView::item { background-color: #DCDCDC; padding: 7%;"
+     "border: 1px solid #C0C0C0; }"
+     "QListView::item::hover { background-color: #C0C0C0 }");
+
+    Completed->setStyleSheet
+    ("QListView { font-size: 10pt; font-weight: bold; }"
+     "QListView::item { background-color: #98FB98; padding: 7%;"
+     "border: 1px solid #90EE90; }"
+     "QListView::item::hover { background-color: #90EE90 }");
 }
 
 MainWindow::~MainWindow()
@@ -83,5 +115,23 @@ void MainWindow::on_addNewTask_clicked()
     addNewTaskDialog->fileManager = this->fileManager; // передаем указатель на file manager
     addNewTaskDialog->currentGroup = ui->taskGroupsList->currentItem()->text(); // сообщяем имя текущей группы
     addNewTaskDialog->show();
+}
+
+
+void MainWindow::on_AddButton_clicked()
+{
+    Pending->model()->insertRow(Pending->model()->rowCount()); //Вставляем пустую строчку
+    QModelIndex oIndex = Pending->model()->index(
+                Pending->model()->rowCount() - 1, 0);//получить последнюю строчку
+
+    Pending->edit(oIndex);
+}
+
+
+void MainWindow::on_DeleteButton_clicked()
+{
+    QModelIndex oIndex = Pending->currentIndex();
+
+    Pending->model()->removeRow(oIndex.row());
 }
 
