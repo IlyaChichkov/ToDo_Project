@@ -174,7 +174,13 @@ Item{
     onCreateClicked: (() => {
                           // addNewTask введён mainwindow как контекст
                           addNewTask.onCreateClicked([taskName.text,
-                                                      taskDesc.text])
+                                                      taskDesc.text,
+                                                      hoursTumbler.currentIndex,
+                                                      minutesTumbler.currentIndex,
+                                                     dayTumbler.currentIndex + 1,
+                                                     ])
+                          addNewTask.destruct();
+//                          console.log(monthTumbler.currentItem)
                       })()
     onCancelClicked: (() => {
                           addNewTask.destruct();
