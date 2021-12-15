@@ -2,6 +2,16 @@
 #include "ui_mainwindow.h"
 #include <QStandardItemModel>
 #include <QDebug>
+#include <QQuickView>
+#include <QQmlComponent>
+#include <QWindow>
+#include <QQmlContext>
+#include <QQmlEngine>
+#include <QQuickView>
+#include <QQmlComponent>
+#include <QWindow>
+#include <QQmlContext>
+#include <QQmlEngine>
 
 #include "addnewtaskdialog.h"
 
@@ -107,14 +117,20 @@ void MainWindow::on_exitButton_released()
     QApplication::quit();
 }
 
-void MainWindow::on_addNewTask_clicked()
+void MainWindow::on_calendar_clicked()
 {
-    AddNewTaskDialog *addNewTaskDialog = new AddNewTaskDialog(this->ui->addNewTask);
-    // Благодаря этому аттрибуту не нужно delete addNewTaskDialog и не нужно сохранять указатель в класс
-    addNewTaskDialog->setAttribute(Qt::WA_DeleteOnClose);
+    qmlRegisterType<AddNewTaskDialog>("ToDo", 1, 0, "AddNewTask");
+    AddNewTaskDialog *addNewTaskDialog = new AddNewTaskDialog(this->ui->calendar);
+    QQuickView *view = new QQuickView;
+//    view->setMinimumHeight(500);
+//    view->setMinimumWidth(350);
+    view->setResizeMode(QQuickView::SizeViewToRootObject);
+    view->setSource(QUrl::fromLocalFile(":/AddNewTaskDialog.qml"));
+    view->show();
+    view->rootContext()->setContextProperty("addNewTask", addNewTaskDialog);
     addNewTaskDialog->fileManager = this->fileManager; // передаем указатель на file manager
     addNewTaskDialog->currentGroup = ui->taskGroupsList->currentItem()->text(); // сообщяем имя текущей группы
-    addNewTaskDialog->show();
+    addNewTaskDialog->view = view;
 }
 
 

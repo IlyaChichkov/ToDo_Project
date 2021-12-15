@@ -34,7 +34,7 @@ private slots:
 
     void on_addNewGroup_clicked();
 
-    void on_addNewTask_clicked();
+    void on_calendar_clicked();
 
 
     void on_AddButton_clicked();

@@ -1,39 +1,25 @@
 #include "addnewtaskdialog.h"
-#include "ui_addnewtaskdialog.h"
 #include <QMessageBox>
 
 #include <QDebug>
 #include "task.h"
-//Функция addNewTaskToGroup(task) должна быть реализована в filemanager
-// #include "filemanager.h"
 
-AddNewTaskDialog::AddNewTaskDialog(QWidget *parent) :
-    QDialog(parent),
-    ui(new Ui::AddNewTaskDialog)
-{
-    ui->setupUi(this);
+AddNewTaskDialog::AddNewTaskDialog(QWidget *parent):
+    QDialog(parent){
+
 }
 
-void AddNewTaskDialog::on_cancelButton_clicked(){
-    this->close();
-}
-
-void AddNewTaskDialog::on_createButton_clicked(){
-    Task* task = createNewTask();
-    if(!task)
-        return;
-
-    qDebug() << task->name;
-    this->fileManager->AddTaskToGroup(currentGroup, task);
-    this->fileManager->SaveData();
-    this->close();
-// Эта функция должна быть реализована в filemanager
-//    addNewTaskToGroup(task);
-}
-
-Task* AddNewTaskDialog::createNewTask(){
+Task* AddNewTaskDialog::CreateNewTask(QVariantList &writables){
     // Проверка на пустоту поля name в задаче
-    if(!ui->name->text().length()){
+    QString text = writables[0].toString();
+    QString desc = writables[1].toString();
+    int hour = writables[2].toInt();
+    int minute = writables[3].toInt();
+    int day = writables[4].toInt();
+    QString month = writables[5].toString();
+    int year = writables[6].toInt();
+//    qDebug() << text << '\n' << desc << '\n' << hour << '\n' << minute << '\n' <<  day << '\n' <<  month << '\n' << year;
+    if(!text.length()){
         QMessageBox msg;
         msg.setText("Задача должна иметь имя");
         msg.setWindowTitle("Неверный ввод");
@@ -42,12 +28,33 @@ Task* AddNewTaskDialog::createNewTask(){
     }
 
     Task* task = new Task();
-    task->name = ui->name->text();
-    task->desc = ui->desc->toPlainText();
+    task->name = text;
+    task->desc = desc;
+//    task->hour = hour;
+//    task->minute = minute;
+//    task->day = day;
+//    task->month = month;
+//    task->year = year;
     return task;
 }
 
 AddNewTaskDialog::~AddNewTaskDialog()
 {
-    delete ui;
+    view->close();
+}
+
+void AddNewTaskDialog::destruct(){
+    delete this;
+}
+
+
+void AddNewTaskDialog::onCreateClicked(QVariantList writables){
+    Task* task = CreateNewTask(writables);
+    if(!task)
+        return;
+
+//    qDebug() << task->name << task->desc;
+//    this->fileManager->AddTaskToGroup(currentGroup, task);
+//    this->fileManager->SaveData();
+    destruct();
 }

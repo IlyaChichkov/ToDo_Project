@@ -3,12 +3,13 @@
 
 #include <QDialog>
 #include <filemanager.h>
+#include <QQuickView>
 
 #include "task.h"
 
-namespace Ui {
-class AddNewTaskDialog;
-}
+//namespace Ui {
+//class AddNewTaskDialog;
+//}
 
 class AddNewTaskDialog : public QDialog
 {
@@ -17,16 +18,20 @@ class AddNewTaskDialog : public QDialog
 public:
     explicit AddNewTaskDialog(QWidget *parent = nullptr);
     ~AddNewTaskDialog();
-    Task* createNewTask();
+    Task* CreateNewTask(QVariantList &writables);
     QString currentGroup;
     FileManager* fileManager;
+    QQuickView *view;
 
-public slots:
-    void on_cancelButton_clicked();
-    void on_createButton_clicked();
+    Q_INVOKABLE void onCreateClicked(QVariantList writables); // writables - всё, что нужно записать, после нажатия кнопки "Создать задачу"
+    Q_INVOKABLE void destruct();
 
-private:
-    Ui::AddNewTaskDialog *ui;
+//public slots:
+//    void on_cancelButton_clicked();
+//    void on_createButton_clicked();
+
+//private:
+//    Ui::AddNewTaskDialog *ui;
 };
 
 #endif // ADDNEWTASKDIALOG_H

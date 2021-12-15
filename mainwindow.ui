@@ -132,12 +132,26 @@ background-color: rgba(255, 255, 255, 0);</string>
       <string notr="true">background-color: rgb(231, 231, 231)</string>
      </property>
     </widget>
+    <widget class="QPushButton" name="calendar">
+     <property name="geometry">
+      <rect>
+       <x>60</x>
+       <y>430</y>
+       <width>80</width>
+       <height>24</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Календарь</string>
+     </property>
+    </widget>
     <zorder>widget</zorder>
     <zorder>titleLabel</zorder>
     <zorder>exitButton</zorder>
     <zorder>taskGroupsList</zorder>
     <zorder>addNewGroup</zorder>
     <zorder>settingsButton</zorder>
+    <zorder>calendar</zorder>
    </widget>
    <widget class="QLabel" name="selectedGroupName">
     <property name="geometry">
@@ -157,19 +171,6 @@ border: 3px solid black;</string>
     </property>
     <property name="text">
      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:12pt; font-weight:600;&quot;&gt;TextLabel&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="addNewTask">
-    <property name="geometry">
-     <rect>
-      <x>230</x>
-      <y>550</y>
-      <width>121</width>
-      <height>31</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Добавить Задачу</string>
     </property>
    </widget>
    <widget class="QWidget" name="horizontalLayoutWidget">
